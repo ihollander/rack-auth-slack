@@ -1,8 +1,6 @@
 # Rack::Auth::Slack
 
-Welcome to your new gem! In this directory, you'll find the files you need to be able to package up your Ruby library into a gem. Put your Ruby code in the file `lib/rack/auth/slack`. To experiment with that code, run `bin/console` for an interactive prompt.
-
-TODO: Delete this and the text above, and describe your gem
+Rack Authentication middleware for Slack API [signed secrets](https://api.slack.com/docs/verifying-requests-from-slack).
 
 ## Installation
 
@@ -16,13 +14,14 @@ And then execute:
 
     $ bundle
 
-Or install it yourself as:
-
-    $ gem install rack-auth-slack
-
 ## Usage
 
-TODO: Write usage instructions here
+Add to your Rack middleware pipeline in `config.ru` and pass your secret as the first argument:
+
+```ruby
+use Rack::Auth::Slack, ENV["SLACK_SECRET"]
+run MyApp
+```
 
 ## Development
 
