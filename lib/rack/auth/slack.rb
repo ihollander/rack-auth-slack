@@ -15,7 +15,7 @@ module Rack
       def call(env)
         request = Rack::Request.new(env)
 
-        timestamp = request.env["HTTP_X_SLACK_REQUEST_TIMESTAMP"] || 0
+        timestamp = request.env["HTTP_X_SLACK_REQUEST_TIMESTAMP"]
         
         # check that the timestamp is recent (~5 mins) to prevent replay attacks
         if Time.at(timestamp.to_i) < Time.now - (60 * 5)
@@ -24,6 +24,7 @@ module Rack
         
         # generate hash
         request_body = request.body.read
+
         computed_signature = generate_hash(timestamp, request_body)
 
         # compare generated hash with slack signature
