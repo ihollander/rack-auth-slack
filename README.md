@@ -19,8 +19,17 @@ And then execute:
 Add to your Rack middleware pipeline in `config.ru` and pass your secret as the first argument:
 
 ```ruby
-use Rack::Auth::Slack, ENV["SLACK_SECRET"]
+use Rack::Auth::Slack, "SLACK_SECRET"
 run MyApp
+```
+
+To use in Rails, in `/config/application.rb`, add to cofigure in your middleware: 
+
+```ruby
+class Application < Rails::Application
+  # ... other middleware ...
+  config.middleware.use Rack::Auth::Slack, "SLACK_SECRET"
+end
 ```
 
 ## Development
